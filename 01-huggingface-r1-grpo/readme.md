@@ -1,3 +1,6 @@
+
+### RL Basics
+
 | Step | Process     | Description                                                                                                                                                               |
 | ---- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1    | Observation | The agent observes the environment. The agent takes in information about its current state and surroundings.                                                              |
@@ -7,9 +10,11 @@
 | 5    | Iteration   | Repeat the process. This cycle continues, allowing the agent to continuously improve its decision-making.                                                                 |
 
 
-| Think about learning to ride a bike. You might wobble and fall at first (negative reward!). But when you manage to balance and pedal smoothly, you feel good (positive reward!). You adjust your actions based on this feedback – leaning slightly, pedaling faster, etc. – until you learn to ride well. RL is similar – it’s about learning through interaction and feedback.
+> Think about learning to ride a bike. You might fall at first (negative reward!). But when you manage to balance and pedal smoothly, it works (positive reward!). You adjust your actions based on this feedback – leaning slightly, pedaling faster, etc. – until you learn to ride well. RL is that, learning through interaction and feedback.
 
 
+
+### WHY RL on LLM's
 
 | Benefit                              | Description                                                                                                                                                                                                                                                          |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -18,19 +23,17 @@
 | Mitigating Undesirable Behaviors     | RL can be used to reduce negative behaviors in LLMs, such as generating toxic language, spreading misinformation, or exhibiting biases. By designing rewards that penalize these behaviors, we can nudge the model to avoid them.                                    |
 
 
-Next token predictions fail short.
 
-RLHF: Human prefs, train reward model, fine tune with RL (PPO), where policy is llm itself, value model is the reward model.
+- **RLHF**: Human prefs, train reward model, fine tune with RL (PPO), where policy is the llm itself, value model is the reward model that is created with human data.
 
-GRPO does not use preference data like DPO, but instead compares groups of similar samples using a reward signal from a model or function.
-
-GRPO can incorporate reward signals from any function or model that can evaluate the quality of responses.
+- **GRPO** does not use preference data like DPO, but instead compares groups of similar samples using a reward signal from a model or function.
+  - Can incorporate reward signals from any function or model that can evaluate the quality of responses.
 
 
 -----
 
 
-R1 Aha moment
+### R1 Aha moment
 
 1. Initial Attempt: The model makes an initial attempt at solving a problem
 2. Recognition: It recognizes potential errors or inconsistencies
@@ -38,6 +41,7 @@ R1 Aha moment
 4. Explanation: It can explain why the new approach is better
 
 
+R1 Elicit's reasoning without direct human labeled data.
 The Reasoning RL Phase focuses on developing core reasoning capabilities across domains including mathematics, coding, science, and logic. This phase employs rule-based reinforcement learning, with rewards directly tied to solution correctness.
 
 Crucially, all the tasks in this phase are ‘verifiable’
@@ -97,12 +101,12 @@ Once we have multiple responses, we need a way to determine which ones are bette
 
 Continuing with our arithmetic example for the same example above, imagine we have 8 responses, 4 of which is correct and the rest wrong, therefore;
 
-| Metric                        | Value                                 |
-|-------------------------------|---------------------------------------|
-| Group Average                 | mean(ri) = 0.5                        |
-| Standard Deviation            | std(ri) = 0.53                        |
-| Advantage (Correct response)  | Ai = (1 - 0.5) / 0.53 = 0.94          |
-| Advantage (Wrong response)    | Ai = (0 - 0.5) / 0.53 = -0.94         |
+| Metric                       | Value                         |
+| ---------------------------- | ----------------------------- |
+| Group Average                | mean(ri) = 0.5                |
+| Standard Deviation           | std(ri) = 0.53                |
+| Advantage (Correct response) | Ai = (1 - 0.5) / 0.53 = 0.94  |
+| Advantage (Wrong response)   | Ai = (0 - 0.5) / 0.53 = -0.94 |
 
 Step 3: Policy Update
 The final step is to use these advantage values to update our model so that it becomes more likely to generate good responses in the future.
